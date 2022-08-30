@@ -1,0 +1,76 @@
+{
+    "operations": {},
+    "tasks": {
+        "@taqueria/plugin-ligo.compile.1661499499523": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1661499499523,
+            "output": [
+                {
+                    "contract": "luminate.mligo",
+                    "artifact": "Not compiled"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1661499526792": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1661499526792,
+            "output": [
+                {
+                    "contract": "luminate.mligo",
+                    "artifact": "Not compiled"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1661499570923": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1661499570923,
+            "output": [
+                {
+                    "contract": "luminate.mligo",
+                    "artifact": "artifacts/luminate.tz"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1661852594801": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1661852594801,
+            "output": [
+                {
+                    "contract": "luminate.mligo",
+                    "artifact": "Not compiled"
+                },
+                {
+                    "contract": "wallet_manager.mligo",
+                    "artifact": "Not compiled"
+                },
+                {
+                    "contract": "smart_wallet.mligo",
+                    "artifact": "Not compiled"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1661852626457": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1661852626457,
+            "output": [
+                {
+                    "contract": "luminate.mligo",
+                    "artifact": "artifacts/luminate.tz"
+                },
+                {
+                    "contract": "wallet_manager.mligo",
+                    "artifact": "artifacts/wallet_manager.tz"
+                },
+                {
+                    "contract": "smart_wallet.mligo",
+                    "artifact": "artifacts/smart_wallet.tz"
+                }
+            ]
+        }
+    }
+}

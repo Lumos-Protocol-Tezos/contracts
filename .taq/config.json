@@ -1,0 +1,50 @@
+{
+    "language": "en",
+    "plugins": [
+        {
+            "name": "@taqueria/plugin-ligo",
+            "type": "npm"
+        }
+    ],
+    "contractsDir": "contracts",
+    "artifactsDir": "artifacts",
+    "network": {},
+    "sandbox": {
+        "local": {
+            "label": "Local Tezos Sandbox",
+            "rpcUrl": "http://localhost:20000",
+            "protocol": "Psithaca2MLRFYargivpo7YvUr7wUDqyxrdhC5CQq78mRvimz6A"
+        }
+    },
+    "environment": {
+        "default": "development",
+        "development": {
+            "networks": [],
+            "sandboxes": [
+                "local"
+            ],
+            "storage": {}
+        }
+    },
+    "accounts": {
+        "bob": "3_000_000_000",
+        "alice": "3_000_000_000",
+        "john": "3_000_000_000",
+        "jane": "3_000_000_000",
+        "joe": "3_000_000_000"
+    },
+    "contracts": {
+        "luminate.mligo": {
+            "sourceFile": "luminate.mligo",
+            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
+        },
+        "wallet_manager.mligo": {
+            "sourceFile": "wallet_manager.mligo",
+            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
+        },
+        "smart_wallet.mligo": {
+            "sourceFile": "smart_wallet.mligo",
+            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
+        }
+    }
+}

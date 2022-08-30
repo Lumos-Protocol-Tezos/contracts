@@ -1,0 +1,23 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "description": "Lumos Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lumos-Protocol-Tezos/contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lumos-Protocol-Tezos/contracts/issues"
+  },
+  "homepage": "https://github.com/Lumos-Protocol-Tezos/contracts#readme",
+  "devDependencies": {
+    "@taqueria/plugin-ligo": "^0.12.0"
+  }
+}
