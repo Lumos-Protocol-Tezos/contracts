@@ -160,14 +160,15 @@ type add_wallet_manager_param = {
   wm_address: WalletManager.wm_address;
 }
 
-type luminate_param = {
+type illuminate_param = {
   nft_address : NftToken.token_address ;
   nft_id : NftToken.token_id;
   token_id : InvestmentToken.token_id;
   amount : nat;
+  (*settings for illumination*)
 }
 
-type luminate_with_interest_param = {
+type illuminate_with_interest_param = {
   nft_address : NftToken.token_address;
   nft_id : NftToken.token_id;
   token_id : InvestmentToken.token_id;
@@ -183,8 +184,8 @@ type withdraw_param = {
 }
 
 type parameter = 
-  | Luminate of luminate_param
-  | LuminateWithInterest of luminate_with_interest_param
+  | Illuminate of illuminate_param
+  | IlluminateWithInterest of illuminate_with_interest_param
   | WithdrawFa12 of withdraw_param
   | AddWalletManager of add_wallet_manager_param
 
@@ -196,7 +197,8 @@ let add_wallet_manager (p, s : add_wallet_manager_param * Storage.t) : return =
   let new_wm_map = Big_map.update p.token_id (Some p.wm_address) s.wm_map in
   ([], {s with wm_map = new_wm_map; invst_tokens = new_invst_tokens;})
 
-let luminate (p,s : luminate_param * Storage.t) : return = 
+(* TODO  when illuminated, fetch settings if exists else create settings *)
+let illuminate (p,s : illuminate_param * Storage.t) : return = 
   let wm_addr_opt = Big_map.find_opt p.token_id s.wm_map in
   let wm_addr = match wm_addr_opt with 
     | None -> (failwith "WM_NOT_FOUND") 
@@ -325,7 +327,7 @@ let withdraw_interest_bearing (p,s : withdraw_param * Storage.t) =
   let bal_of_tr : operation = Tezos.transaction balance_of_query 0tez bal_of_yup_ep in 
   ([bal_of_tr], s)
 
-let luminate_with_interest (p,s : luminate_with_interest_param * Storage.t) = 
+let illuminate_with_interest (p,s :illuminate_with_interest_param * Storage.t) = 
   let wm_addr_opt = Big_map.find_opt p.token_id s.wm_map in
   let wm_addr = match wm_addr_opt with 
     | None -> (failwith "WM_NOT_FOUND") 
@@ -404,7 +406,7 @@ let luminate_with_interest (p,s : luminate_with_interest_param * Storage.t) =
 
 let main (param, storage : (parameter * Storage.t)) : return = 
   match param with
-  | Luminate p -> luminate (p, storage)
-  | LuminateWithInterest p -> luminate_with_interest (p, storage)
+  | Illuminate p ->illuminate (p, storage)
+  | IlluminateWithInterest p -> illuminate_with_interest (p, storage)
   | WithdrawFa12 p -> withdraw (p, storage)
   | AddWalletManager p -> add_wallet_manager (p, storage)

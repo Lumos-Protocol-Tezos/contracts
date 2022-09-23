@@ -1,0 +1,2 @@
+(* Settigns for time locks  *)
+

@@ -34,16 +34,20 @@
         "joe": "3_000_000_000"
     },
     "contracts": {
-        "luminate.mligo": {
-            "sourceFile": "luminate.mligo",
-            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
-        },
         "wallet_manager.mligo": {
             "sourceFile": "wallet_manager.mligo",
             "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
         },
         "smart_wallet.mligo": {
             "sourceFile": "smart_wallet.mligo",
+            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
+        },
+        "lumos_settings.mligo": {
+            "sourceFile": "lumos_settings.mligo",
+            "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
+        },
+        "illuminate.mligo": {
+            "sourceFile": "illuminate.mligo",
             "hash": "241556bb7f849d22564378991ce6c15ffd7fd5727620f207fb53e6dc538e66ef"
         }
     }
