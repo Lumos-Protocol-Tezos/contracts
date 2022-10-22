@@ -1,4 +1,3 @@
-NOTE - The frontend is hosted at - https://capable-begonia-127106.netlify.app/ , to mint an nft, you need to have [this](https://devratroom.blogspot.com/p/cross-domain-cors-extension.html) extension installed. You can still test the main functionality (illuminate, withdraw) without the extension though.
 
 # Lumos Protocol
 
