@@ -1,11 +1,13 @@
 module Yupana = struct 
   type token_id = nat
 end
+(* validate the deposit beofre acceptiog it *)
 
+(* This defines the tokens that are bridged to Yup, these are child tokes that are owned by their parent NFT *)
 module InvestmentToken = struct 
   type token_id = nat 
   type token_address = address
-  type token_type = string (* TODO *)
+  type token_type = Fa12 | Fa2 (* TODO *)
 
   type token_details = {
     token_address : token_address;
@@ -17,6 +19,7 @@ module InvestmentToken = struct
   type t = (token_id, token_details) big_map
 end
 
+(* This is the main NFT *)
 module NftToken = struct 
   type token_id = nat 
   type token_address = address
@@ -58,6 +61,19 @@ module FA12Token = struct
     | Some ep -> ep
 end
 
+module FA2Token = struct 
+  type transfer = [@layout:comb] {
+    from: address;
+    to : address;
+    value: nat
+  }
+
+  let get_transfer_ep (addr : InvestmentToken.token_address) : transfer contract = 
+    match (Tezos.get_entrypoint_opt ("%transfer") (addr : address) : transfer contract option ) with
+    | None -> (failwith "TRANSFER_EP_NOT_FOUND")
+    | Some ep -> ep
+end
+(* wallet manager is *)
 module WalletManager = struct 
   type wm_address = address
 
@@ -165,7 +181,7 @@ type illuminate_param = {
   nft_id : NftToken.token_id;
   token_id : InvestmentToken.token_id;
   amount : nat;
-  (*settings for illumination*)
+  (*settings for illumination, this will be optional fail if not there in the first illumination. *)
 }
 
 type illuminate_with_interest_param = {
@@ -207,14 +223,14 @@ let illuminate (p,s : illuminate_param * Storage.t) : return =
   let invst_token_details = match invst_tkn_details_opt with 
     | None -> (failwith "INVST_TOKEN_NOT_FOUND") 
     | Some dts -> dts in 
-  let invst_tkn_transfer_ep = FA12Token.get_transfer_ep invst_token_details.token_address in
-  let transfer_self_param : FA12Token.transfer = {
+  let transfer_self_param = {
     from = Tezos.get_sender();
     to = Tezos.get_self_address();
-    value = p.amount; (* TODO add fees here*)
+    value = p.amount; (* TODO add fees here *)
   } in
-  let _transfer_to_self_txn : operation = (* TODO will be useful for fees *)
-    Tezos.transaction transfer_self_param 0tez invst_tkn_transfer_ep in
+  let invst_tkn_transfer_ep = match invst_tkn_details with 
+  | Fa12 ->  FA12Token.get_transfer_ep invst_token_details.token_address
+  | Fa2 -> FA2Token.get_transfer_ep invst_token_details.token_address in
   let smart_wallet_addr_key : WalletManager.smart_wallet_key = {
     nft_address = p.nft_address; 
     nft_id = p.nft_id;
@@ -345,6 +361,7 @@ let illuminate_with_interest (p,s :illuminate_with_interest_param * Storage.t) =
     to = Tezos.get_self_address();
     value = p.amount; (* TODO add fees here*)
   } in
+  (*might not need this *)
   let _transfer_to_self_txn : operation = (* TODO will be useful for fees *)
     Tezos.transaction transfer_self_param 0tez invst_tkn_transfer_ep in
   let smart_wallet_addr_key : WalletManager.smart_wallet_key = {
