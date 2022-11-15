@@ -1,38 +1,11 @@
 {
     "operations": {},
     "tasks": {
-        "@taqueria/plugin-ligo.compile.1663925717690": {
+        "@taqueria/plugin-ligo.compile.1668506274640": {
             "task": "compile",
             "plugin": "@taqueria/plugin-ligo",
-            "time": 1663925717690,
+            "time": 1668506274640,
             "output": [
-                {
-                    "contract": "luminate.mligo",
-                    "artifact": "Not compiled"
-                },
-                {
-                    "contract": "wallet_manager.mligo",
-                    "artifact": "Not compiled"
-                },
-                {
-                    "contract": "smart_wallet.mligo",
-                    "artifact": "Not compiled"
-                },
-                {
-                    "contract": "lumos_settings.mligo",
-                    "artifact": "Not compiled"
-                }
-            ]
-        },
-        "@taqueria/plugin-ligo.compile.1663925888721": {
-            "task": "compile",
-            "plugin": "@taqueria/plugin-ligo",
-            "time": 1663925888721,
-            "output": [
-                {
-                    "contract": "luminate.mligo",
-                    "artifact": "Not compiled"
-                },
                 {
                     "contract": "wallet_manager.mligo",
                     "artifact": "artifacts/wallet_manager.tz"
@@ -44,18 +17,18 @@
                 {
                     "contract": "lumos_settings.mligo",
                     "artifact": "Not compiled"
+                },
+                {
+                    "contract": "illuminate.mligo",
+                    "artifact": "Not compiled"
                 }
             ]
         },
-        "@taqueria/plugin-ligo.compile.1663926027357": {
+        "@taqueria/plugin-ligo.compile.1668506311279": {
             "task": "compile",
             "plugin": "@taqueria/plugin-ligo",
-            "time": 1663926027357,
+            "time": 1668506311279,
             "output": [
-                {
-                    "contract": "luminate.mligo",
-                    "artifact": "Not compiled"
-                },
                 {
                     "contract": "wallet_manager.mligo",
                     "artifact": "artifacts/wallet_manager.tz"
@@ -74,15 +47,11 @@
                 }
             ]
         },
-        "@taqueria/plugin-ligo.compile.1663927638492": {
+        "@taqueria/plugin-ligo.compile.1668506661587": {
             "task": "compile",
             "plugin": "@taqueria/plugin-ligo",
-            "time": 1663927638492,
+            "time": 1668506661587,
             "output": [
-                {
-                    "contract": "luminate.mligo",
-                    "artifact": "Not compiled"
-                },
                 {
                     "contract": "wallet_manager.mligo",
                     "artifact": "artifacts/wallet_manager.tz"
@@ -97,14 +66,14 @@
                 },
                 {
                     "contract": "illuminate.mligo",
-                    "artifact": "artifacts/illuminate.tz"
+                    "artifact": "Not compiled"
                 }
             ]
         },
-        "@taqueria/plugin-ligo.compile.1663927678699": {
+        "@taqueria/plugin-ligo.compile.1668506734578": {
             "task": "compile",
             "plugin": "@taqueria/plugin-ligo",
-            "time": 1663927678699,
+            "time": 1668506734578,
             "output": [
                 {
                     "contract": "wallet_manager.mligo",
@@ -120,7 +89,30 @@
                 },
                 {
                     "contract": "illuminate.mligo",
-                    "artifact": "artifacts/illuminate.tz"
+                    "artifact": "Not compiled"
+                }
+            ]
+        },
+        "@taqueria/plugin-ligo.compile.1668506884514": {
+            "task": "compile",
+            "plugin": "@taqueria/plugin-ligo",
+            "time": 1668506884515,
+            "output": [
+                {
+                    "contract": "wallet_manager.mligo",
+                    "artifact": "artifacts/wallet_manager.tz"
+                },
+                {
+                    "contract": "smart_wallet.mligo",
+                    "artifact": "artifacts/smart_wallet.tz"
+                },
+                {
+                    "contract": "lumos_settings.mligo",
+                    "artifact": "Not compiled"
+                },
+                {
+                    "contract": "illuminate.mligo",
+                    "artifact": "Not compiled"
                 }
             ]
         }

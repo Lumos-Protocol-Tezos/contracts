@@ -73,6 +73,7 @@ module FA2Token = struct
     | None -> (failwith "TRANSFER_EP_NOT_FOUND")
     | Some ep -> ep
 end
+
 (* wallet manager is *)
 module WalletManager = struct 
   type wm_address = address
@@ -159,14 +160,44 @@ module WalletManager = struct
     match (Tezos.get_entrypoint_opt "%balanceOfQueryYup" wm_addr : balance_of_query_yup contract option) with 
     | None -> (failwith "WM_BALANCE_OF_YUP_ENTRYPOINT_NOT_FOUND" : balance_of_query_yup contract)
     | Some ctr -> ctr 
-
 end
+
+module ProtocolSettings = struct 
+  type settings_version = V1 | V2 | V3 | V4 (* subject to change, figure out how many? or just make an arbitrary string *)
+
+  type min_max_deposits = nat * nat
+  
+  type settings = {
+    version : settings_version;
+    time_lock :  timestamp;
+    min_max_deposits : min_max_deposits;
+    annuity : nat;
+    annuity_on_interest : nat;
+  }
+  
+  type t = {
+    settings : (InvestmentToken.token_id, settings) big_map;
+  }
+
+  type get_token_settings_param = {
+    nft_address : address;
+    nft_id : nat;
+    token_id : InvestmentToken.token_id;
+  }
+
+  let get_token_settings_ep (token_info, settings_contract_address : get_token_settings_param * address) : t contract = 
+    match (Tezos.get_entrypoint_opt "%getTokenSettings" settings_contract_address: t contract option) with 
+    | None -> (failwith "TOKEN_SETTINGS_NOT_FOUND")
+    | Some ep -> ep
+
+end 
 
 module Storage = struct 
   type t = {
     wm_map : (InvestmentToken.token_id, WalletManager.wm_address) big_map; 
     invst_tokens : (InvestmentToken.token_id, InvestmentToken.token_details) big_map;
     admin : address;
+    settings_contract : address;
   }
 end
 
@@ -228,7 +259,7 @@ let illuminate (p,s : illuminate_param * Storage.t) : return =
     to = Tezos.get_self_address();
     value = p.amount; (* TODO add fees here *)
   } in
-  let invst_tkn_transfer_ep = match invst_tkn_details with 
+  let invst_tkn_transfer_ep = match invst_token_details with 
   | Fa12 ->  FA12Token.get_transfer_ep invst_token_details.token_address
   | Fa2 -> FA2Token.get_transfer_ep invst_token_details.token_address in
   let smart_wallet_addr_key : WalletManager.smart_wallet_key = {
@@ -280,14 +311,27 @@ let illuminate (p,s : illuminate_param * Storage.t) : return =
   in return
 
 let withdraw (p,s : withdraw_param * Storage.t) : return =
+  (* TODO Fetch the settings from the settings contract *)
   let wm_addr_opt = Big_map.find_opt p.invst_token_id s.wm_map in
   let wm_addr = match wm_addr_opt with 
     | None -> (failwith "WM_NOT_FOUND") 
     | Some addr -> addr in
   let invst_tkn_details_opt = Big_map.find_opt p.invst_token_id s.invst_tokens in
   let invst_tkn_details = match invst_tkn_details_opt with
-    | None -> (failwith "WM_NOT_FOUND")
+    | None -> (failwith "INVST_TKN_DETAILS_NOT_FOUND")
     | Some dts -> dts in
+  let token_settings_param = {
+    nft_address =  p.nft_address;
+    nft_id = p.nft_id;
+    invst_token_id = p.invst_token_id; 
+  } in
+  let token_settings_option = ProtocolSettings.get_token_settings_ep token_settings_param s.settings_contract in
+  let token_settings = match token_settings_option with
+  | None -> (failwith("TOKEN_SETTINGS_NOT_FOUND")) 
+  | Some settings -> settings in 
+  let xxx = match token_settings.version with
+  | V1 x -> x
+  | None -> (failwith("INVALID_SETTINGS_VERSION")) in
   let withdraw_fa12_param : WalletManager.withdraw_fa12 = {
     nft_address = p.nft_address;
     nft_id = p.nft_id;
